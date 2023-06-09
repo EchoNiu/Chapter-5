@@ -12,5 +12,11 @@ public interface ApiService {
     // https://www.wanandroid.com/user/register
     //方法：POST
     //	username,password,repassword
-
+    // https://www.wanandroid.com/user/register
+    @FormUrlEncoded
+    @POST("user/register")
+    Call<RegisterResponse> register(
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("repassword") String repassword
 }

@@ -47,7 +47,22 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 // todo 做网络请求
+                Call<RegisterResponse> call = apiService.register(name, password, repassword);
+                call.enqueue(new Callback<RegisterResponse>() {
+                    @Override
+                    public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                        RegisterResponse registerResponse = response.body();
+                        if (registerResponse.errorCode == 0) {
+                            Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, registerResponse.errorMsg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                    }
 
             }
         });
